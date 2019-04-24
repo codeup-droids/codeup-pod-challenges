@@ -1,25 +1,35 @@
 //useful functions
 
 function isEven(num) {
-	if(isNaN(num)){
+	if (isNaN(num)) {
 		return console.error("this num isNaN");
 	}
-	if (num % 2 ===0){
+	if (num % 2 === 0) {
 		return true;
 	}
 	return false;
 }
 
 function isOdd(num) {
-	if(isNaN(num)){
+	if (isNaN(num)) {
 		return console.error("this num isNaN");
 	}
-	if (num % 2 !==0){
+	if (num % 2 !== 0) {
 		return true;
 	}
 	return false;
 }
 
+function isPrime(num) {
+	for (let i =2; i < num ; i ++){
+		if(num % i===0){
+			console.log((num + " is not Prime"));
+			return false;
+		}
+	}
+	console.log((num + " is prime"));
+	return true;
+}
 
 
 /*
@@ -75,25 +85,62 @@ Answer:
 // takes in a number
 function evenFibonacciSum(num) {
 // first lets create the sequence variables;
-	let fibSeq= [];
+	let fibSeq = [];
 	let a = 1;
 	let b = 1;
 	let c = 0;
 	let sum = 0;
 	// then we do the things
-	for(let i = 1; i < num; i++){
-		c = a+b;
-		if(isEven(c)){
-		sum += c;
-			if (sum >= 4000000){
+	for (let i = 1; i < num; i++) {
+		c = a + b;
+		if (isEven(c)) {
+			sum += c;
+			if (sum >= 4000000) {
 				return sum;
 			}
 		}
-		a=b;
-		b=c;
+		a = b;
+		b = c;
 	}
 	//fibSeq.forEach(function (item) {
 	//	c+= item
 	//});
 	return sum;
+}
+
+/*
+Largest prime factor
+
+Problem 3
+The prime factors of 13195 are 5, 7, 13 and 29.
+
+What is the largest prime factor of the number 600851475143 ?
+
+
+Answer:
+6857
+
+*/
+
+var primesList = [];
+function largestPrimeFactor(num) {
+	let newNum = Math.sqrt(num);
+	let factors = [];
+	for (let i = 2; i < newNum; i++) {
+		if ((num % i ===0) && (isPrime(i))){
+			console.log(i + " is a factor of " + num);
+			factors.push(i);
+		}
+	}
+
+	/*for (let i = 2;i < newNum;i++){
+		if ((i % num === 0)&& isPrime(i)){
+			console.log(("Adding " + i + " to the prime list"));
+			primesList.push(i);
+		}
+
+	}*/
+	//console.log(primesList.pop());
+	console.log(factors);
+
 }
