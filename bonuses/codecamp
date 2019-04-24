@@ -1,0 +1,69 @@
+** Basic JavaScript **
+
+
+- Escape Sequences in Strings -
+
+Assign the following three lines of text into the single
+variable myStr using escape sequences.
+
+FirstLine
+    \SecondLine
+ThirdLine
+
+SOLUTION:
+var myStr = "FirstLine\n\t\\SecondLine\nThirdLine";
+
+
+- Concatenating Strings with Plus Operator -
+
+Build myStr from the strings "This is the start.
+" and "This is the end." using the + operator.
+
+// Example
+var ourStr = "I come first. " + "I come second.";
+
+SOLUTION:
+var myStr = "This is the start. " + "This is the end.";
+
+
+- Concatenating Strings with the Plus Equals Operator -
+
+Build myStr over several lines by concatenating these two strings:
+"This is the first sentence. " and "This is the second sentence."
+using the += operator. Use the += operator similar to how it is shown
+in the editor. Start by assigning the first string to myStr, then add on
+the second string.
+
+// Example
+var ourStr = "I come first. ";
+ourStr += "I come second.";
+
+SOLUTION:
+var myStr = "This is the first sentence. ";
+myStr += "This is the second sentence.";
+
+
+- Constructing Strings with Variables -
+
+Set myName to a string equal to your name and build myStr with
+myName between the strings "My name is " and " and I am well!"
+
+// Example
+var ourName = "freeCodeCamp";
+var ourStr = "Hello, our name is " + ourName + ", how are you?";
+
+SOLUTION:
+var myName = "Edwin";
+var myStr = "My name is " + myName + " and I am well!";
+
+
+- Appending Variables to Strings -
+
+Set someAdjective and append it to myStr using the += operator.
+
+// Example
+var anAdjective = "awesome!";
+var ourStr = "freeCodeCamp is ";
+ourStr += anAdjective;
+
+SOLUTION:
