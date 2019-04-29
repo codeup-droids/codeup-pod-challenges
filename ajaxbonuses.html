@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>yeah</title>
+    <style>
+
+        #jokes{
+            height: 400px;
+            width: 400px;
+            display:flex;
+            border: 10px solid brown;
+            border-radius: 50%;
+            margin: 10px;
+            justify-content: center;
+            align-items: center;
+        }
+        #quoteContainer{
+            display: flex;
+        }
+
+    </style>
+
+</head>
+<body>
+<div id="quoteContainer">
+    <button id="chuckJoke">chuck joke</button>
+    <div id="jokes"></div>
+    <button id="otherJoke">other quote</button>
+</div>
+
+<script src="jquery.js"></script>
+<script>
+
+
+
+
+    $('#otherJoke').click(function() {
+        $.ajax('http://quotes.stormconsultancy.co.uk/random.json').done(function (data) {
+            $('#jokes').html('<h3>' + data.quote + ' -' + data.author + '</h3>')
+        });
+    });
+
+    $('#chuckJoke').click(function(){
+        $.ajax('http://api.icndb.com/jokes/random/').done(function(data){
+            $('#jokes').html('<h3>' + data.value.joke + '</h3>')
+        })
+    })
+</script>
+</body>
+</html>

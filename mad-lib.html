@@ -100,13 +100,13 @@
                 madlibResponseArr[i] = madlibResponseArr[i].substring(madlibResponseArr[i].indexOf('=') + 1);
             }
             if (madlibResponseArr[3] === "neutral") {
-                madlibResponseArr[3] = "zir"
+                madlibResponseArr[3] = "zir";
                 var pronounTwo = "zim"
             } else if (madlibResponseArr[3]==="his") {
                 pronounTwo = "him"
             } else {
                 pronounTwo = "her"
-            };
+            }
             console.log(madlibResponseArr);
             $('#results').html('A(n) ' + madlibResponseArr[0] + ' named ' + madlibResponseArr[1] + ' ate ' + madlibResponseArr[2] + ' all day <br> ' + madlibResponseArr[3] + ' ' + madlibResponseArr[4] + ' not optimum craved ' + madlibResponseArr[5] + ' and ' + madlibResponseArr[6] + '<br> ' + madlibResponseArr[3] + ' ' + madlibResponseArr[7] + ' and ' + madlibResponseArr[8] + ' and ' + madlibResponseArr[9] + ' won\'t suffice<br> has no ' + madlibResponseArr[10] + ' to help ' + pronounTwo + ' so ' + madlibResponseArr[1] + ' just ' + madlibResponseArr[11] + '...')
         });
