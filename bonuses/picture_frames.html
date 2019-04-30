@@ -3,8 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <title>Traversing Picture Frames</title>
+
+    <style>
+        div {
+            width: 130px;
+            height: 82px;
+            margin: 10px;
+            float: left;
+            border: 1px solid blue;
+            padding: 4px;
+        }
+        #container {
+            width: auto;
+            height: 105px;
+            margin: 0;
+            float: none;
+            border: none;
+        }
+    </style>
 </head>
 <body>
+<div id="container">
+    <div id="imageOne">
+        <p>Picture</p>
+    </div>
+    <button id="swapRight">Swap</button>
+    <div id="imageTwo">
+        <p>Picture</p>
+    </div>
+    <button id="swapRandom">Swap</button>
+    <div id="imageThree">
+        <p>Picture</p>
+    </div>
+    <button id="swapLeft">Swap</button>
+</div>
 
+<script src="js/jquery.js"></script>
+<script>
+    (function() {
+        "use strict";
+        // Buttons for image swaps
+        $("#imageOne").click(function () {
+        //    use traversing to swap images left and middle
+        });
+        $("#imageTwo").click(function () {
+        //    traversing to swap middle image with left || right image
+        });
+        $("#imageThree").click(function () {
+        //    traversing to swap images middle and right
+        });
+
+
+
+
+
+
+    })();
+</script>
 </body>
 </html>
