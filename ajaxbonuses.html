@@ -33,6 +33,17 @@
 
 <hr>
 
+    <table class="table table-dark" id="products">
+            <thead>
+            <tr>
+                <th>Restaurant</th>
+                <th>Hours</th>
+                <th>Open/Closed</th>
+            </tr>
+            </thead>
+            <tbody id="restaurantInfo"></tbody>
+    </table>
+
 <script src="jquery.js"></script>
 <script>
 
@@ -59,42 +70,62 @@
             isOpen[index] = {
                 "name": datum.name
             };
+/*
             console.log(isOpen);
+*/
             var today = new Date();
             var time = today.getHours();
             var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
             var day = days[today.getDay()];
-            var joined = datum.operating_hours[day].split('-');
-            console.log(datum.operating_hours[day]);
-            for (var i=0; i<joined.length; i++){
-                    if (joined[i].includes('pm')) {
-                        joined[i] = joined[i].replace(/\D/g, '');
-                        joined[i] = parseInt(joined[i]);
-                        joined[i] += 1200;
+            var joined = datum.operating_hours[day];
+            console.log(joined);
+
+            var split = datum.operating_hours[day].split(',');
+            split = split.join();
+            split = split.split('-');
+
+            for (var i=0; i<split.length; i++){
+                    if (split[i].includes('pm')) {
+                        split[i] = split[i].replace(/\D/g, '');
+                        split[i] = parseInt(split[i]);
+                        split[i] += 1200;
                     } else {
-                        joined[i] = joined[i].replace(/\D/g, '');
-                        joined[i] = parseFloat(joined[i])
+                        split[i] = split[i].replace(/\D/g, '');
+                        split[i] = parseFloat(split[i])
                     }
-            } isOpen[index].times = joined;
+            } isOpen[index].times = split;
+          isOpen[index].displayTimes = joined;
+
             console.log(isOpen);
-        }); isItOpen(isOpen);
+
+        }); isItOpen(isOpen, data);
     });
-    var openRestaurantArray = [];
+
     function isItOpen(isOpen){
         var today = new Date();
-        var time = today.getHours();
+        var time = 1600 /*today.getHours();*/
+        /*time *= 100;*/
         console.log(time);
         for (var i=0; i<isOpen.length; i++){
             if (time >= isOpen[i].times[0] && time <= isOpen[i].times[1]){
-                openRestaurantArray.push(isOpen[i].name)
+                isOpen[i].open = 'Open'
             } else if (time >= isOpen[i].times[2] && time <= isOpen[i].times[3]){
-                openRestaurantArray.push(isOpen[i].name)
+                isOpen[i].open = 'Open'
 
+            } else{
+                isOpen[i].open = 'Closed'
             }
-        } console.log(openRestaurantArray)
+        } makeTable(isOpen);
+/*
+        console.log(isOpen)
+*/
     }
 
-
+    function makeTable(arr){
+        arr.forEach(function(element){
+            $('#restaurantInfo').append('<tr><td>' + element.name + '<td>' + element.displayTimes +'</td><td>' + element.open + '</td></tr>')
+        })
+    }
 
 
 
