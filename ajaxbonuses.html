@@ -49,7 +49,6 @@
 
 
 
-/*
     $('#otherJoke').click(function() {
         $.ajax('http://quotes.stormconsultancy.co.uk/random.json').done(function (data) {
             $('#jokes').html('<h3>' + data.quote + ' -' + data.author + '</h3>')
@@ -71,9 +70,9 @@
                 "name": datum.name,
                 "latlng": datum.latlng
             };
-/!*
+/*
             console.log(isOpen);
-*!/
+*/
             var today = new Date();
             var time = today.getHours();
             var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
@@ -84,6 +83,9 @@
             var split = datum.operating_hours[day].split(',');
             split = split.join();
             split = split.split('-');
+            split = split.join();
+            split = split.split(',');
+            console.log(split)
 
             for (var i=0; i<split.length; i++){
                     if (split[i].includes('pm')) {
@@ -92,8 +94,8 @@
                         split[i] += 1200;
                     } else {
                         split[i] = split[i].replace(/\D/g, '');
-                        split[i] = parseFloat(split[i])
-                        if (split[i] < 500){
+                        split[i] = parseFloat(split[i]);
+                        if ((split[i] < 500) || split[i] === 1200){
                             split[i] += 2400;
                         }
                     }
@@ -109,6 +111,7 @@
         var today = new Date();
         var time = today.getHours();
         time *= 100;
+        time += today.getMinutes();
         console.log(time);
         for (var i=0; i<isOpen.length; i++){
             if (time >= isOpen[i].times[0] && time <= isOpen[i].times[1]){
@@ -121,9 +124,9 @@
             }
         } makeTable(isOpen);
         closeToKatz(isOpen);
-/!*
+/*
         console.log(isOpen)
-*!/
+*/
     }
 
     function makeTable(arr){
@@ -151,7 +154,7 @@
                 }
             })
 
-        } */
+        }
 
     var gitHub =$.ajax('https://gist.githubusercontent.com/ryanorsinger/f77e5ec94dbe14e21771/raw/d4a1f916723ca69ac99fdcab48746c6682bf4530/profiles.json')
 
