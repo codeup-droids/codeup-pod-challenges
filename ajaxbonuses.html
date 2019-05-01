@@ -68,7 +68,8 @@
         console.log(data);
         data.forEach(function(datum, index){
             isOpen[index] = {
-                "name": datum.name
+                "name": datum.name,
+                "latlng": datum.latlng
             };
 /*
             console.log(isOpen);
@@ -92,6 +93,9 @@
                     } else {
                         split[i] = split[i].replace(/\D/g, '');
                         split[i] = parseFloat(split[i])
+                        if (split[i] < 500){
+                            split[i] += 2400;
+                        }
                     }
             } isOpen[index].times = split;
           isOpen[index].displayTimes = joined;
@@ -103,8 +107,8 @@
 
     function isItOpen(isOpen){
         var today = new Date();
-        var time = 1600 /*today.getHours();*/
-        /*time *= 100;*/
+        var time = today.getHours();
+        time *= 100;
         console.log(time);
         for (var i=0; i<isOpen.length; i++){
             if (time >= isOpen[i].times[0] && time <= isOpen[i].times[1]){
@@ -116,6 +120,7 @@
                 isOpen[i].open = 'Closed'
             }
         } makeTable(isOpen);
+        closeToKatz(isOpen);
 /*
         console.log(isOpen)
 */
@@ -130,6 +135,23 @@
 
 
 
+        function closeToKatz() {
+            var katzArray = []
+            isOpen.forEach(function(element){
+                if (element.name !== "Katz's Delicatessen") {
+                    element.distFromKatz = [(40.722216 - element.latlng.lat), (-73.987501 - element.latlng.lng)]
+                    element.distFromKatz = element.distFromKatz[0] + element.distFromKatz[1]
+                    katzArray.push(Math.abs(element.distFromKatz))
+                }
+            });
+            var closest = Math.min(...katzArray);
+            isOpen.forEach(function(element){
+                if (closest === Math.abs(element.distFromKatz)){
+                    alert(element.name + ' is the closest restaurant to Katz')
+                }
+            })
+
+        }
 
 
 
