@@ -49,7 +49,7 @@
 
 
 
-
+/*
     $('#otherJoke').click(function() {
         $.ajax('http://quotes.stormconsultancy.co.uk/random.json').done(function (data) {
             $('#jokes').html('<h3>' + data.quote + ' -' + data.author + '</h3>')
@@ -71,9 +71,9 @@
                 "name": datum.name,
                 "latlng": datum.latlng
             };
-/*
+/!*
             console.log(isOpen);
-*/
+*!/
             var today = new Date();
             var time = today.getHours();
             var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
@@ -121,9 +121,9 @@
             }
         } makeTable(isOpen);
         closeToKatz(isOpen);
-/*
+/!*
         console.log(isOpen)
-*/
+*!/
     }
 
     function makeTable(arr){
@@ -151,8 +151,68 @@
                 }
             })
 
-        }
+        } */
 
+    var gitHub =$.ajax('https://gist.githubusercontent.com/ryanorsinger/f77e5ec94dbe14e21771/raw/d4a1f916723ca69ac99fdcab48746c6682bf4530/profiles.json')
+
+    gitHub.done(function(data){
+       var dataObject = JSON.parse(data);
+       console.log(dataObject);
+        createVarReport(dataObject)
+    });
+var varReport = {};
+    function createVarReport(arr) {
+        varReport.numOfProfiles = arr.length;
+        varReport.numOfActive = 0;
+        varReport.totalBalance = {
+            total: 0,
+            average: 0,
+            activeUsers: 0,
+            inactiveUsers: 0
+        };
+        varReport.gender = {
+            male: 0,
+            female: 0
+        };
+        var eyebject = {
+            blue: 0,
+            green: 0,
+            brown: 0,
+        };
+        varReport.companies = [];
+        var ages = 0;
+        arr.forEach(function(element){
+            var balance = parseFloat(element.balance.replace(/\D/g, ''));
+            if (element.isActive === true){
+                varReport.numOfActive += 1;
+                varReport.totalBalance.activeUsers += balance
+            } else {varReport.totalBalance.inactiveUsers += balance}
+            varReport.totalBalance.total += balance;
+            ages += element.age;
+            if(element.gender === 'male'){varReport.gender.male += 1}
+            else {varReport.gender.female += 1}
+            varReport.companies.push(element.company);
+
+            if (element.eyeColor === 'green'){eyebject.green += 1}
+            if (element.eyeColor === 'blue'){eyebject.blue += 1}
+            if (element.eyeColor === 'brown'){eyebject.brown += 1}
+
+            if ((eyebject.green > eyebject.blue) && (eyebject.green > eyebject.brown)) {
+                varReport.commonEye = 'green'
+            } else if ((eyebject.brown > eyebject.blue) && (eyebject.brown > eyebject.green)) {
+                varReport.commonEye = "brown"
+            } else{
+                varReport.commonEye = 'blue'
+            }
+
+
+
+        });
+        console.log(ages);
+        varReport.avgAge = (ages / varReport.numOfProfiles).toFixed(3);
+        varReport.totalBalance.average = (varReport.totalBalance.total / varReport.numOfProfiles).toFixed(2);
+        console.log(varReport);
+    }
 
 
 </script>
