@@ -162,7 +162,7 @@ var palVar = [];
 function palNum(num) {
 	let a = 99;
 	let b = 99;
-	for (a= 100; a>40:a--){
+	for (a= 100; a>40;a--){
 
 		for (b=100;b>40;b--) {
 

@@ -1,0 +1,14 @@
+/*css for main page*/
+
+.image-container{
+    background-image: url("../img/its_not_your_time.jpg");
+    background-color: darkslateblue;
+    background-size: cover;
+    height: 300px;
+    width: 70%;
+    background-position: center;
+    position: absolute;
+}
+.brand-logo{
+    opacity: .5;
+}
