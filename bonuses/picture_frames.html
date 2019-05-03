@@ -3,62 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <title>Traversing Picture Frames</title>
-
-    <style>
-        div {
-            width: 130px;
-            height: 82px;
-            margin: 10px;
-            float: left;
-            border: 1px solid blue;
-            padding: 4px;
-        }
-        #container {
-            width: auto;
-            height: 105px;
-            margin: 0;
-            float: none;
-            border: none;
-        }
-    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-<div id="container">
-    <div id="imageOne">
-        <p>Picture</p>
+    <div class="container">
+        <div class="row">
+            <div class="col-4" id="imageOne">
+                <img src="images/pic1.jpeg" alt="">
+            </div>
+            <div class="col-4" id="imagetwo">
+                <img src="images/pic2.jpeg" alt="">
+            </div>
+            <div class="col-4" id="imageThree">
+                <img src="images/pic3.jpeg" alt="">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button id="swapOne">swap</button>
+            </div>
+            <div class="col">
+                <button id="swapTwo">swap</button>
+            </div>
+            <div class="col">
+                <button id="swapThree">swap</button>
+            </div>
+        </div>
     </div>
-    <button id="swapRight">Swap</button>
-    <div id="imageTwo">
-        <p>Picture</p>
-    </div>
-    <button id="swapRandom">Swap</button>
-    <div id="imageThree">
-        <p>Picture</p>
-    </div>
-    <button id="swapLeft">Swap</button>
-</div>
-
 <script src="js/jquery.js"></script>
 <script>
     (function() {
         "use strict";
         // Buttons for image swaps
-        $("#imageOne").click(function () {
+        $("#swapOne").click(function () {
         //    use traversing to swap images left and middle
+            $("#imageOne")
         });
-        $("#imageTwo").click(function () {
+        $("#swapTwo").click(function () {
         //    traversing to swap middle image with left || right image
+            $("#imageTwo")
         });
-        $("#imageThree").click(function () {
+        $("#swapThree").click(function () {
         //    traversing to swap images middle and right
+            $("#imageThree")
         });
-
-
-
-
-
-
     })();
 </script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>
