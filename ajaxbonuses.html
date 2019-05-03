@@ -78,14 +78,18 @@
             var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
             var day = days[today.getDay()];
             var joined = datum.operating_hours[day];
+/*
             console.log(joined);
+*/
 
             var split = datum.operating_hours[day].split(',');
             split = split.join();
             split = split.split('-');
             split = split.join();
             split = split.split(',');
-            console.log(split)
+/*
+            console.log(split);
+*/
 
             for (var i=0; i<split.length; i++){
                     if (split[i].includes('pm')) {
@@ -102,7 +106,9 @@
             } isOpen[index].times = split;
           isOpen[index].displayTimes = joined;
 
+/*
             console.log(isOpen);
+*/
 
         }); isItOpen(isOpen, data);
     });
@@ -112,7 +118,9 @@
         var time = today.getHours();
         time *= 100;
         time += today.getMinutes();
+/*
         console.log(time);
+*/
         for (var i=0; i<isOpen.length; i++){
             if (time >= isOpen[i].times[0] && time <= isOpen[i].times[1]){
                 isOpen[i].open = 'Open'
@@ -160,7 +168,9 @@
 
     gitHub.done(function(data){
        var dataObject = JSON.parse(data);
+/*
        console.log(dataObject);
+*/
         createVarReport(dataObject)
     });
 var varReport = {};
@@ -211,7 +221,9 @@ var varReport = {};
 
 
         });
+/*
         console.log(ages);
+*/
         varReport.avgAge = (ages / varReport.numOfProfiles).toFixed(3);
         varReport.totalBalance.average = (varReport.totalBalance.total / varReport.numOfProfiles).toFixed(2);
         console.log(varReport);
