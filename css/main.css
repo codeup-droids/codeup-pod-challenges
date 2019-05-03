@@ -1,5 +1,9 @@
 /*css for main page*/
 
+a{
+    color: #600;
+}
+
 .image-container{
     background-image: url("../img/its_not_your_time.jpg");
     background-color: darkslateblue;
@@ -11,4 +15,12 @@
 }
 .brand-logo{
     opacity: .5;
+}
+.tab_container{
+    position: absolute;
+    top: 450px;
+}
+
+.invisible{
+    display: none;
 }

@@ -21,8 +21,8 @@ function isOdd(num) {
 }
 
 function isPrime(num) {
-	for (let i =2; i < num ; i ++){
-		if(num % i===0){
+	for (let i = 2; i < num; i++) {
+		if (num % i === 0) {
 			console.log((num + " is not Prime"));
 			return false;
 		}
@@ -123,11 +123,12 @@ Answer:
 */
 
 var primesList = [];
+
 function largestPrimeFactor(num) {
 	let newNum = Math.sqrt(num);
 	let factors = [];
 	for (let i = 2; i < newNum; i++) {
-		if ((num % i ===0) && (isPrime(i))){
+		if ((num % i === 0) && (isPrime(i))) {
 			console.log(i + " is a factor of " + num);
 			factors.push(i);
 		}
@@ -159,12 +160,13 @@ Answer:
 */
 
 var palVar = [];
+
 function palNum(num) {
 	let a = 99;
 	let b = 99;
-	for (a= 100; a>40;a--){
+	for (a = 100; a > 40; a--) {
 
-		for (b=100;b>40;b--) {
+		for (b = 100; b > 40; b--) {
 
 		}
 
