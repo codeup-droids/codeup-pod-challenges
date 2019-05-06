@@ -122,7 +122,7 @@ Answer:
 
 */
 
-var primesList = [];
+let primesList = [];
 
 function largestPrimeFactor(num) {
 	let newNum = Math.sqrt(num);
@@ -159,7 +159,7 @@ Answer:
 906609
 */
 
-var palVar = [];
+let palVar = [];
 
 function palNum(num) {
 	let a = 99;
