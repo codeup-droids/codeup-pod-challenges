@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Enter variables separated by commas. Then enter a proposition (currently limited to two variables and one connective (working on it!). </h1>
+
+<!--<label for="name_counter">Please input variables separated by commas:</label>-->
+<input id="name_counter" autofocus type="text">
+<button id="addNames">add names</button>
+
+<div class="container">
+    <div>
+        <input class="btn input-field" id="Input_Field" type="text" name="equation">
+    </div>
+    <div id ='names'>
+
+    </div>
+    <form action="">
+        <div class="">
+            <button class="connective_btn" id="or" onclick="input(' v ')" value="||" type="button">or</button>
+            <button class="connective_btn" id="if_then" onclick="input(' -> ')" value="if" type="button">-></button>
+            <button class="connective_btn" id="if&onlyif" onclick="input(' <-> ')" value="<>" type="button"><-></button>
+            <button class="connective_btn" id="and" onclick="input(' & ')" value="&&" type="button">&</button>
+
+        </div>
+        <div>
+            <button class="connective_btn" id="not" onclick="input('~')" value="!" type="button">~</button>
+            <button class="operator_btn" id="openParenthesis" onclick="input(',(')" value="(" type="button">(</button>
+            <button class="operator_btn" id="closeParenthesis" onclick="input('),')" value=")" type="button">)</button>
+            <button class="operator_btn" id="entails" onclick="input(' &#8872; ')" value="&#8872;" type="button">&#8872;</button>
+            <button class="clear_btn" type='reset' id="clear" onclick="document.getElementById('Input_Field').value=''" value="reset">clr</button>
+        </div>
+    </form>
+
+    <button id="generate" type="submit">crunchatize me cap'n</button>
+</div>
+
+<div >
+    <table id="truthTable">
+        <thead id="header"></thead>
+
+    </table>
+</div>
+
+<script src="jquery.js"></script>
+
+<script>
+
+    var inputArray =[];
+    var inputArrToStr;
+    var nameArray = '';
+
+    /*displays button values in input field*/
+    function input(n) {
+        inputArray.push(n);
+        inputArrToStr = inputArray.join('');
+        var inputs = $('#Input_Field:text').val(inputArrToStr);
+        console.log(inputArrToStr)
+        return inputArrToStr;
+
+    }
+
+    var nameArray = '';
+    var headArray = [];
+
+    /*adds buttons for name inputs*/
+    function numOfNames() {
+        var items = $('#name_counter').val();
+        var noSpace = items.replace(/\s+/g, '');
+        nameArray = noSpace.split(',');
+        for(var i=0;i<nameArray.length; i++){
+            var listText = nameArray[i];
+
+            var attribute = '' + nameArray[i] + '';
+
+            $("#names").append('<button onclick=input(' + "'" + attribute + "'" + ')>' + listText + '</button>');
+        }
+        console.log(nameArray);
+        console.log(inputArray);
+        console.log(inputArrToStr);
+        return nameArray
+
+    }
+
+
+    function buildTable(){
+        inputArray = inputArrToStr.split(',');
+        let rowNum = Math.pow(2, nameArray.length)
+        headArray = nameArray;
+        for (let i=0; i<inputArray.length; i++){
+            if(inputArray[i] !== ''){
+                headArray.push(inputArray[i]);
+            }
+        } headArray.forEach(function(element, index) {
+            $('#header').append('<th>' + element + '</th>')
+        });
+        for( i=0; i<rowNum; i++){
+            /* tr = document.createElement('TR');*/
+            $('#truthTable').append('<tr class="truthData" id="' + i + '"></tr>');
+        }
+        makeData(headArray);
+    }
+
+
+/*builds truthobject and determines the connective*/
+    var truthObject = {}
+    var str2Arr = []
+    function makeData(headArray){
+        let input = headArray.length;
+
+            if(input === 2) {
+                 truthObject = {
+                    A: ['t','f']
+                };
+            } else if(input === 3) {
+                 truthObject = {
+                    A: ['t', 't', 'f', 'f'],
+                    B: ['t', 'f', 't', 'f',]
+                }
+            } else if(input === 4) {
+                 truthObject = {
+                    A: ['t', 't', 't', 't', 'f', 'f', 'f', 'f'],
+                    B: ['t', 't', 'f', 'f', 't', 't', 'f', 'f'],
+                    C: ['t', 'f', 't', 'f', 't', 'f', 't', 'f']
+                }
+            } else if (input === 5) {
+                 truthObject = {
+                    A: ['t', 't', 't', 't','t', 't', 't', 't', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f'],
+                    B: ['t', 't', 't', 't', 'f', 'f', 'f', 'f','t', 't', 't', 't', 'f', 'f', 'f', 'f'],
+                    C: ['t', 't', 'f', 'f', 't', 't', 'f', 'f','t', 't', 'f', 'f', 't', 't', 'f', 'f'],
+                    D: ['t', 'f', 't', 'f', 't', 'f', 't', 'f','t', 'f', 't', 'f', 't', 'f', 't', 'f']
+                }
+            }
+
+        var arr2Str = inputArray.join(' ');
+        str2Arr = arr2Str.split(' ');
+        var compares = [];
+        var connective = '';
+        for(i = 0; i<str2Arr.length; i++) {
+
+            if (str2Arr[i] === 'v' || str2Arr[i] === '&' || str2Arr[i] === '->' || str2Arr[i] === '<->' ||  str2Arr[i] === '~' ) {
+                connective = str2Arr[i];
+            } else {
+                compares.push(str2Arr[i].toUpperCase())
+            }
+        } console.log(compares);
+
+        console.log(str2Arr);
+        console.log(connective);
+        console.log(inputArray);
+        console.log(truthObject);
+        evaluate(connective, truthObject);
+        return str2Arr;
+
+    }
+
+
+    /*decides which function*/
+    function evaluate(connective, truthObject) {
+        switch(connective) {
+            case 'v':
+                orTable(truthObject);
+                break;
+            case '&':
+                andTable(inputArray);
+                break;
+            case '->':
+                ifTable(inputArray);
+                break;
+            case '<->':
+                ifandifTable(inputArray);
+                break;
+            case'~':
+                negation(inputArray);
+                break;
+        }
+    }
+var cArray = [];
+    function orTable(truthObject) {
+        console.log(truthObject);
+
+        let length = Math.pow(2, headArray.length);
+        for (let i = 0; i<length; i++){
+            if (truthObject.A[i] === 'f' && truthObject.B[i] === 'f'){
+                cArray.push('F')
+            } else {
+                cArray.push('T')
+            }
+        }
+        putItOnAPage(cArray, length)
+    }
+
+    function ifandifTable() {
+        var length = Math.pow(2, headArray.length);
+        cArray =[];
+        for (i=0; i<length; i++){
+            if ((truthObject.A[i] === 't' && truthObject.B[i] === 't') || ((truthObject.A[i] === 'f' && truthObject.B[i] === 'f'))){
+                cArray.push('T')
+            } else {
+                cArray.push('F')
+            }
+        } putItOnAPage(cArray, length)
+    }
+
+    function andTable() {
+        var length = Math.pow(2, headArray.length);
+        cArray =[];
+        for (i=0; i<length; i++){
+            if (truthObject.A[i] === 't' && truthObject.B[i] === 't'){
+                cArray.push('T')
+            } else {
+                cArray.push('F')
+            }
+        }
+        putItOnAPage(cArray, length)
+    }
+
+    function ifTable() {
+        var length = Math.pow(2, headArray.length);
+        cArray =[];
+        for (i=0; i<length; i++){
+            if (truthObject.A[i] === 't' && truthObject.B[i] === 'f'){
+                cArray.push('F')
+            } else {
+                cArray.push('T')
+            }
+        }
+        putItOnAPage(cArray, length)
+    }
+
+    function negation() {
+        var length = Math.pow(2, headArray.length);
+
+        for (let i=0; i<length; i++){
+            if (truthObject.A[i] === 't'){
+                cArray.push('F')
+            } else if (truthObject.B[i] === 'f'){
+                cArray.push('T')
+            }
+        } putItOnAPage(cArray, length)
+    }
+
+
+
+
+    /*builds the actual truth table*/
+    function putItOnAPage(cArray, length) {
+        if (headArray.length === 2) {
+            for (i=0; i<length; i++){
+                $('#' + [i]).append('<td>' + truthObject.A[i] + '</td>')
+            }
+        }
+        if (headArray.length === 3) {
+            for (i=0; i<length; i++) {
+                $('#' + [i]).append('<td>' + truthObject.A[i] + '</td>' + '<td>' + truthObject.B[i] + '</td>' + '<td>' + cArray[i] +'</td>')
+            }
+        }
+        if (headArray.length === 4) {
+            for(i=0; i<length; i++) {
+                $('#' + [i]).append('<td>' + truthObject.A[i] + '</td>' + '<td>' + truthObject.B[i] + '</td>' + '<td>' + truthObject.C[i] +'</td>' + '<td>' + cArray[i] +'</td>')
+            }
+        }
+        if (headArray.length === 5) {
+            for(i=0; i<length; i++) {
+                $('#' + [i]).append('<td>' + truthObject.A[i] + '</td>' + '<td>' + truthObject.B[i] + '</td>' + '<td>' + truthObject.C[i] +'</td>' + '<td>' + truthObject.D[i] +'</td>' + '<td>' + cArray[i] +'</td>')
+            }
+        }
+    }
+
+
+
+
+
+    $('#clear').click(()=> inputArray =[]);
+
+    $('#generate').click(buildTable);
+
+    $('#addNames').click(numOfNames);
+</script>
+</body>
+</html>

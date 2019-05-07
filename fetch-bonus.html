@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>fetch</title>
+</head>
+<body>
+<form action="">
+<label for="username">Please input a username</label>
+<input type="text" id="username">
+<button type="submit" id="submit"></button>
+</form>
+<form action="GET">
+    <label for="starWars">Please Enter A Character</label>
+    <input type="text" id="starWars">
+    <button type="submit" id="characterSearch"></button>
+</form>
+<div id="movie"></div>
+
+
+<script src="../codeup_web_exercises/js/keys.js"></script>
+<script>
+    function checkColor() {
+        event.preventDefault();
+        fetch('data/colors.json').then(response => response.json()).then(data => {
+            let input = document.getElementById('username').value;
+                if (data.hasOwnProperty(input)){
+                    alert(`${input}'s favorite color is ${data[input]}`);
+                    document.body.style.backgroundColor = data[input]
+                } else{
+                    alert('sorry, you are not in our database. please sign up')
+                }
+            });
+
+    }
+function searchCharacter() {
+        event.preventDefault();
+        let input = document.getElementById('starWars').value;
+    fetch(`https://swapi.co/api/people/?search=${input}`).then(response => response.json()).then(data => {
+        console.log(data);
+        let movies = data.results[0].films;
+        let movie = movies.reduce((low, movie)=>{
+            if (parseInt(movie.charAt(27)) < low) {
+                low = movie
+
+            } if (parseInt(movie.charAt(27)) === 1){
+                low = movie
+            }
+            return low
+        }, 10);
+
+       displayFirstFilm(data, movie)
+    })
+}
+
+
+function displayFirstFilm(data, movie){
+    fetch(`${movie}`).then(response => response.json()).then(film => {
+        let firstFilm = film.title;
+        document.getElementById('movie').innerHTML = `<p>the first movie ${data.results[0].name} appeared in was: ${firstFilm}`
+    });
+}
+
+
+    let userInfo = (userName) => {
+        fetch(`https://api.github.com/users/${userName}/events`, {headers: {'Authorization': githubKey}})
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+
+                for (let i =0; i<2; i++){
+
+                }
+               /* putItOnThePage(data);*/
+                return data
+            })
+        /*
+                .catch(err => console.log(err));
+        */
+    };
+
+    userInfo('nnosaJasonn');
+
+    document.getElementById('characterSearch').addEventListener('click', searchCharacter)
+
+    document.getElementById('submit').addEventListener('click', checkColor)
+</script>
+</body>
+</html>
+
+
+<!-- fetch(`${data.results.films[0]}`).then(response => response.json()).then(film => console.log(film));
+      /*  document.getElementById('movie').innerHTML = `<p>the first movie ${input} appeared in was ${data.results[0].films[0]}`*/-->
