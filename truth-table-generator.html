@@ -3,49 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        #backgroundimage{
+            height: 500px;
+            background-image: url('campaign_misscleo-20160726093844190.jpg');
+           background-size: 100% 100%;
+            /*opacity: .5;*/
+        }
+
+        .container{
+            width: 17em;
+            height: 17em;
+        }
+
+    </style>
 </head>
 <body>
-<h1>Enter variables separated by commas. Then enter a proposition (currently limited to two variables and one connective (working on it!). </h1>
+
+<audio id="myAudio">
+    <source src="baby-cakes.mp3" type="audio/ogg">
+</audio>
+<audio id="herAudio">
+    <source src="believe-cleo.mp3" type="audio/ogg">
+</audio>
+
+<div id="backgroundimage">
+
+</div>
+<div class="jumbotron">
+    <h1 class="display-4">Truth Table Generator! </h1>
+    <p class="lead">Enter variables separated by commas. Then enter a proposition (currently limited to one connective (working on it!). </p>
+    <hr class="my-4">
+    <input id="name_counter" autofocus type="text">
+    <p><sup>Powered by Miss Cleo</sup></p>
+    <button id="addNames">add names</button>
+</div>
+
+
+
 
 <!--<label for="name_counter">Please input variables separated by commas:</label>-->
-<input id="name_counter" autofocus type="text">
-<button id="addNames">add names</button>
 
-<div class="container">
+
+<div class="border bg-light rounded text-center container">
     <div>
-        <input class="btn input-field" id="Input_Field" type="text" name="equation">
+        <input class="border m-2 input-field" id="Input_Field" type="text" name="equation">
     </div>
     <div id ='names'>
 
     </div>
     <form action="">
         <div class="">
-            <button class="connective_btn" id="or" onclick="input(' v ')" value="||" type="button">or</button>
-            <button class="connective_btn" id="if_then" onclick="input(' -> ')" value="if" type="button">-></button>
-            <button class="connective_btn" id="if&onlyif" onclick="input(' <-> ')" value="<>" type="button"><-></button>
-            <button class="connective_btn" id="and" onclick="input(' & ')" value="&&" type="button">&</button>
+            <button class="btn m-1 btn-dark connective_btn" id="or" onclick="input(' v ')" value="||" type="button">or</button>
+            <button class="btn m-1 btn-dark connective_btn" id="if_then" onclick="input(' -> ')" value="if" type="button">-></button>
+            <button class="btn m-1 btn-dark connective_btn" id="if&onlyif" onclick="input(' <-> ')" value="<>" type="button"><-></button>
+            <button class="btn m-1 btn-dark connective_btn" id="and" onclick="input(' & ')" value="&&" type="button">&</button>
 
         </div>
-        <div>
-            <button class="connective_btn" id="not" onclick="input('~')" value="!" type="button">~</button>
-            <button class="operator_btn" id="openParenthesis" onclick="input(',(')" value="(" type="button">(</button>
-            <button class="operator_btn" id="closeParenthesis" onclick="input('),')" value=")" type="button">)</button>
-            <button class="operator_btn" id="entails" onclick="input(' &#8872; ')" value="&#8872;" type="button">&#8872;</button>
-            <button class="clear_btn" type='reset' id="clear" onclick="document.getElementById('Input_Field').value=''" value="reset">clr</button>
+        <div >
+            <button class="btn m-1 btn-dark connective_btn" id="not" onclick="input('~')" value="!" type="button">~</button>
+            <button class="btn m-1 btn-dark operator_btn" id="openParenthesis" onclick="input(',(')" value="(" type="button">(</button>
+            <button class="btn m-1 btn-dark operator_btn" id="closeParenthesis" onclick="input('),')" value=")" type="button">)</button>
+            <button class="btn m-1 btn-dark operator_btn" id="entails" onclick="input(' &#8872; ')" value="&#8872;" type="button">&#8872;</button>
+
         </div>
     </form>
-
-    <button id="generate" type="submit">crunchatize me cap'n</button>
+    <button class="w-100 align-self-baseline" type='reset' id="clear" onclick="document.getElementById('Input_Field').value=''" value="reset">clr</button>
+    <button id="generate" class="w-100 align-self-baseline" type="submit">Free Psychic Reading</button>
 </div>
 
 <div >
-    <table id="truthTable">
-        <thead id="header"></thead>
+    <table class="table table-bordered table-striped" id="truthTable">
+        <thead class="thead-dark" id="header"></thead>
 
     </table>
 </div>
 
 <script src="jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
 
 <script>
 
@@ -76,7 +114,7 @@
 
             var attribute = '' + nameArray[i] + '';
 
-            $("#names").append('<button onclick=input(' + "'" + attribute + "'" + ')>' + listText + '</button>');
+            $("#names").append('<button class="btn m-1 btn-dark clear_btn" onclick=input(' + "'" + attribute + "'" + ')>' + listText + '</button>');
         }
         console.log(nameArray);
         console.log(inputArray);
@@ -113,25 +151,25 @@
 
             if(input === 2) {
                  truthObject = {
-                    A: ['t','f']
+                    A: ['T','F']
                 };
             } else if(input === 3) {
                  truthObject = {
-                    A: ['t', 't', 'f', 'f'],
-                    B: ['t', 'f', 't', 'f',]
+                    A: ['T', 'T', 'F', 'F'],
+                    B: ['T', 'F', 'T', 'F',]
                 }
             } else if(input === 4) {
                  truthObject = {
-                    A: ['t', 't', 't', 't', 'f', 'f', 'f', 'f'],
-                    B: ['t', 't', 'f', 'f', 't', 't', 'f', 'f'],
-                    C: ['t', 'f', 't', 'f', 't', 'f', 't', 'f']
+                    A: ['T', 'T', 'T', 'T', 'F', 'F', 'F', 'F'],
+                    B: ['T', 'T', 'F', 'F', 'T', 'T', 'F', 'F'],
+                    C: ['T', 'F', 'T', 'F', 'T', 'F', 'T', 'F']
                 }
             } else if (input === 5) {
                  truthObject = {
-                    A: ['t', 't', 't', 't','t', 't', 't', 't', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f'],
-                    B: ['t', 't', 't', 't', 'f', 'f', 'f', 'f','t', 't', 't', 't', 'f', 'f', 'f', 'f'],
-                    C: ['t', 't', 'f', 'f', 't', 't', 'f', 'f','t', 't', 'f', 'f', 't', 't', 'f', 'f'],
-                    D: ['t', 'f', 't', 'f', 't', 'f', 't', 'f','t', 'f', 't', 'f', 't', 'f', 't', 'f']
+                    A: ['T', 'T', 'T', 'T','T', 'T', 'T', 'T', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F'],
+                    B: ['T', 'T', 'T', 'T', 'F', 'F', 'F', 'F','T', 'T', 'T', 'T', 'F', 'F', 'F', 'F'],
+                    C: ['T', 'T', 'F', 'F', 'T', 'T', 'F', 'F','T', 'T', 'F', 'F', 'T', 'T', 'F', 'F'],
+                    D: ['T', 'F', 'T', 'F', 'T', 'F', 'T', 'F','T', 'F', 'T', 'F', 'T', 'F', 'T', 'F']
                 }
             }
 
@@ -152,39 +190,38 @@
         console.log(connective);
         console.log(inputArray);
         console.log(truthObject);
-        evaluate(connective, truthObject);
+        evaluate(connective, compares);
         return str2Arr;
 
     }
 
 
     /*decides which function*/
-    function evaluate(connective, truthObject) {
+    function evaluate(connective, compares) {
         switch(connective) {
             case 'v':
-                orTable(truthObject);
+                orTable(truthObject, compares);
                 break;
             case '&':
-                andTable(inputArray);
+                andTable(truthObject, compares);
                 break;
             case '->':
-                ifTable(inputArray);
+                ifTable(truthObject, compares);
                 break;
             case '<->':
-                ifandifTable(inputArray);
+                ifandifTable(truthObject, compares);
                 break;
             case'~':
-                negation(inputArray);
+                negation(truthObject, compares);
                 break;
         }
     }
 var cArray = [];
-    function orTable(truthObject) {
+    function orTable(truthObject, compares) {
         console.log(truthObject);
-
         let length = Math.pow(2, headArray.length);
         for (let i = 0; i<length; i++){
-            if (truthObject.A[i] === 'f' && truthObject.B[i] === 'f'){
+            if (truthObject[compares[0]][i] === 'F' && truthObject[compares[1]][i] === 'F'){
                 cArray.push('F')
             } else {
                 cArray.push('T')
@@ -193,11 +230,11 @@ var cArray = [];
         putItOnAPage(cArray, length)
     }
 
-    function ifandifTable() {
+    function ifandifTable(truthObject, compares) {
         var length = Math.pow(2, headArray.length);
         cArray =[];
         for (i=0; i<length; i++){
-            if ((truthObject.A[i] === 't' && truthObject.B[i] === 't') || ((truthObject.A[i] === 'f' && truthObject.B[i] === 'f'))){
+            if ((truthObject[compares[0]][i] === 'T' && truthObject[compares[1]][i] === 'T') || ((truthObject[compares[0]][i] === 'F' && truthObject[compares[1]][i] === 'F'))){
                 cArray.push('T')
             } else {
                 cArray.push('F')
@@ -205,11 +242,11 @@ var cArray = [];
         } putItOnAPage(cArray, length)
     }
 
-    function andTable() {
+    function andTable(truthObject, compares) {
         var length = Math.pow(2, headArray.length);
         cArray =[];
         for (i=0; i<length; i++){
-            if (truthObject.A[i] === 't' && truthObject.B[i] === 't'){
+            if (truthObject[compares[0]][i] === 'T' && truthObject[compares[1]][i] === 'T'){
                 cArray.push('T')
             } else {
                 cArray.push('F')
@@ -218,11 +255,11 @@ var cArray = [];
         putItOnAPage(cArray, length)
     }
 
-    function ifTable() {
+    function ifTable(truthObject, compares) {
         var length = Math.pow(2, headArray.length);
         cArray =[];
         for (i=0; i<length; i++){
-            if (truthObject.A[i] === 't' && truthObject.B[i] === 'f'){
+            if (truthObject[compares[0]][i] === 'T' && truthObject[compares[1]][i] === 'F'){
                 cArray.push('F')
             } else {
                 cArray.push('T')
@@ -231,13 +268,13 @@ var cArray = [];
         putItOnAPage(cArray, length)
     }
 
-    function negation() {
+    function negation(truthObject) {
         var length = Math.pow(2, headArray.length);
 
         for (let i=0; i<length; i++){
-            if (truthObject.A[i] === 't'){
+            if (truthObject[compares[0]][i] === 'T'){
                 cArray.push('F')
-            } else if (truthObject.B[i] === 'f'){
+            } else if (truthObject[compares[1]][i] === 'F'){
                 cArray.push('T')
             }
         } putItOnAPage(cArray, length)
@@ -250,26 +287,58 @@ var cArray = [];
     function putItOnAPage(cArray, length) {
         if (headArray.length === 2) {
             for (i=0; i<length; i++){
-                $('#' + [i]).append('<td>' + truthObject.A[i] + '</td>')
+                $('#' + [i]).html('<td>' + truthObject.A[i] + '</td>')
+                if (cArray[i] === 'T'){
+                    $(`#${i}`).addClass('table-success')
+                } else {
+                    $(`#${i}`).addClass('table-danger')
+                }
             }
         }
         if (headArray.length === 3) {
             for (i=0; i<length; i++) {
-                $('#' + [i]).append('<td>' + truthObject.A[i] + '</td>' + '<td>' + truthObject.B[i] + '</td>' + '<td>' + cArray[i] +'</td>')
+                $('#' + [i]).html('<td>' + truthObject.A[i] + '</td>' + '<td>' + truthObject.B[i] + '</td>' + '<td>' + cArray[i] +'</td>')
+                if (cArray[i] === 'T'){
+                    $(`#${i}`).addClass('table-success')
+                } else {
+                    $(`#${i}`).addClass('table-danger')
+                }
             }
         }
         if (headArray.length === 4) {
             for(i=0; i<length; i++) {
-                $('#' + [i]).append('<td>' + truthObject.A[i] + '</td>' + '<td>' + truthObject.B[i] + '</td>' + '<td>' + truthObject.C[i] +'</td>' + '<td>' + cArray[i] +'</td>')
+                $('#' + [i]).html('<td>' + truthObject.A[i] + '</td>' + '<td>' + truthObject.B[i] + '</td>' + '<td>' + truthObject.C[i] +'</td>' + '<td>' + cArray[i] +'</td>')
+                if (cArray[i] === 'T'){
+                    $(`#${i}`).addClass('table-success')
+                } else {
+                    $(`#${i}`).addClass('table-danger')
+                }
             }
         }
         if (headArray.length === 5) {
             for(i=0; i<length; i++) {
-                $('#' + [i]).append('<td>' + truthObject.A[i] + '</td>' + '<td>' + truthObject.B[i] + '</td>' + '<td>' + truthObject.C[i] +'</td>' + '<td>' + truthObject.D[i] +'</td>' + '<td>' + cArray[i] +'</td>')
+                $('#' + [i]).html('<td>' + truthObject.A[i] + '</td>' + '<td>' + truthObject.B[i] + '</td>' + '<td>' + truthObject.C[i] +'</td>' + '<td>' + truthObject.D[i] +'</td>' + '<td>' + cArray[i] +'</td>')
+                console.log(cArray[i])
+                if (cArray[i] === 'T'){
+                    $(`#${i}`).addClass('table-success')
+                } else {
+                    $(`#${i}`).addClass('table-danger')
+                }
             }
         }
+
     }
 
+    function playCleo(e){
+        console.log(e);
+        if(e.currentTarget.id === "addNames") {
+            var audio = document.getElementById('myAudio');
+            audio.play()
+        } else {
+             audio = document.getElementById('herAudio');
+            audio.play()
+        }
+    }
 
 
 
@@ -277,6 +346,10 @@ var cArray = [];
     $('#clear').click(()=> inputArray =[]);
 
     $('#generate').click(buildTable);
+    $('#generate').click(playCleo);
+
+
+    $('#addNames').click(playCleo);
 
     $('#addNames').click(numOfNames);
 </script>

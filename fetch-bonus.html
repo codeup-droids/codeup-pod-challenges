@@ -57,7 +57,7 @@ function searchCharacter() {
 function displayFirstFilm(data, movie){
     fetch(`${movie}`).then(response => response.json()).then(film => {
         let firstFilm = film.title;
-        document.getElementById('movie').innerHTML = `<p>the first movie ${data.results[0].name} appeared in was: ${firstFilm}`
+        document.getElementById('movie').innerHTML = `<p>the first movie ${data.results[0].name} appeared in was: ${firstFilm}</p>`
     });
 }
 
@@ -81,7 +81,7 @@ function displayFirstFilm(data, movie){
 
     userInfo('nnosaJasonn');
 
-    document.getElementById('characterSearch').addEventListener('click', searchCharacter)
+    document.getElementById('characterSearch').addEventListener('click', searchCharacter);
 
     document.getElementById('submit').addEventListener('click', checkColor)
 </script>
