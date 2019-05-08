@@ -16,6 +16,10 @@
             width: 17em;
             height: 17em;
         }
+        .miss-cleo{
+            display: none;
+        }
+
 
     </style>
 </head>
@@ -36,11 +40,11 @@
 </div>
 <div class="jumbotron">
     <h1 class="display-4">Truth Table Generator! </h1>
-    <p class="lead">Enter variables separated by commas. Then enter a proposition (currently limited to one connective (working on it!). </p>
+    <p class="lead">Enter variables separated by commas. Then enter a proposition (currently limited to one connective (more to come!)). </p>
     <hr class="my-4">
     <input id="name_counter" class='mx-3' autofocus type="text">
     <button id="addNames">add names</button>
-    <p class="d-inline mx-1 text-danger"><sup>Powered by Miss Cleo</sup></p>
+    <p id="hover" class="d-inline mx-1 text-danger"><sup>Powered by Miss Cleo</sup><img src="hqdefault.jpg" class="miss-cleo" id="miss-cleo" alt=""></p>
 </div>
 
 
@@ -93,6 +97,8 @@
     var inputArray =[];
     var inputArrToStr;
     var nameArray = '';
+    var headArray = [];
+    var backupInputArray;
 
     /*displays button values in input field*/
     function input(n) {
@@ -101,11 +107,8 @@
         var inputs = $('#Input_Field:text').val(inputArrToStr);
         console.log(inputArrToStr)
         return inputArrToStr;
-
     }
 
-    var nameArray = '';
-    var headArray = [];
 
     /*adds buttons for name inputs*/
     function numOfNames() {
@@ -126,8 +129,8 @@
 
     }
 
-    var backupInputArray;
 
+/*builds table head and table rows*/
     function buildTable(){
         inputArray = inputArrToStr.split(',');
         let rowNum = Math.pow(2, nameArray.length);
@@ -148,7 +151,7 @@
     }
 
 
-/*builds truthobject and determines the connective*/
+/*truthobject and determines the connective*/
     var truthObject = {}
     var str2Arr = []
     function makeData(headArray){
@@ -222,9 +225,11 @@
         }
         return compares;
     }
-var cArray = [];
+
+    /*makes table data for disjunction connective*/
     function orTable(truthObject, compares) {
         console.log(truthObject);
+        cArray = []
         let length = Math.pow(2, headArray.length);
         for (let i = 0; i<length; i++){
             if (truthObject[compares[0]][i] === 'F' && truthObject[compares[1]][i] === 'F'){
@@ -236,6 +241,7 @@ var cArray = [];
         putItOnAPage(cArray, length)
     }
 
+/*makes table data for biconditional connective*/
     function ifandifTable(truthObject, compares) {
         var length = Math.pow(2, headArray.length);
         cArray =[];
@@ -248,6 +254,7 @@ var cArray = [];
         } putItOnAPage(cArray, length)
     }
 
+    /*makes table data for conjunction connective*/
     function andTable(truthObject, compares) {
         var length = Math.pow(2, headArray.length);
         cArray =[];
@@ -261,6 +268,7 @@ var cArray = [];
         putItOnAPage(cArray, length)
     }
 
+    /*makes table data for conditional connective*/
     function ifTable(truthObject, compares) {
         console.log(compares);
         var length = Math.pow(2, headArray.length);
@@ -275,13 +283,15 @@ var cArray = [];
         putItOnAPage(cArray, length)
     }
 
-    function negation(truthObject) {
+    /*makes table data for conditional connective*/
+    function negation(truthObject, compares) {
         var length = Math.pow(2, headArray.length);
-
+        console.log(compares);
+        cArray =[]
         for (let i=0; i<length; i++){
             if (truthObject[compares[0]][i] === 'T'){
                 cArray.push('F')
-            } else if (truthObject[compares[1]][i] === 'F'){
+            } else if (truthObject[compares[0]][i] === 'F'){
                 cArray.push('T')
             }
         } putItOnAPage(cArray, length)
@@ -336,6 +346,7 @@ var cArray = [];
 
     }
 
+    /*sounds*/
     function playCleo(e){
         console.log(e);
         if(e.currentTarget.id === "addNames") {
@@ -349,7 +360,7 @@ var cArray = [];
             audio.play()
         }
     }
-
+    /*clear button*/
     function clear(){
 
 
@@ -362,8 +373,11 @@ var cArray = [];
     }
 
 
+    $('#hover').click(function(){
+        $('#miss-cleo').toggleClass('miss-cleo')
+    });
 
-    $('#clear').click(playCleo).click(clear);
+
 
     $('#generate').click(buildTable)
     /*$('#generate')*/.click(playCleo);
