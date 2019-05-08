@@ -27,6 +27,9 @@
 <audio id="herAudio">
     <source src="believe-cleo.mp3" type="audio/ogg">
 </audio>
+<audio id="bad-move">
+    <source src="dont-do-it.mp3" type="audio/ogg">
+</audio>
 
 <div id="backgroundimage">
 
@@ -35,9 +38,9 @@
     <h1 class="display-4">Truth Table Generator! </h1>
     <p class="lead">Enter variables separated by commas. Then enter a proposition (currently limited to one connective (working on it!). </p>
     <hr class="my-4">
-    <input id="name_counter" autofocus type="text">
-    <p><sup>Powered by Miss Cleo</sup></p>
+    <input id="name_counter" class='mx-3' autofocus type="text">
     <button id="addNames">add names</button>
+    <p class="d-inline mx-1 text-danger"><sup>Powered by Miss Cleo</sup></p>
 </div>
 
 
@@ -69,7 +72,7 @@
 
         </div>
     </form>
-    <button class="w-100 align-self-baseline" type='reset' id="clear" onclick="document.getElementById('Input_Field').value=''" value="reset">clr</button>
+    <button class="w-100 align-self-baseline" type='reset' id="clear" onclick="document.getElementById('Input_Field').value=''" value="reset">Clear and Start over</button>
     <button id="generate" class="w-100 align-self-baseline" type="submit">Free Psychic Reading</button>
 </div>
 
@@ -123,13 +126,15 @@
 
     }
 
+    var backupInputArray;
 
     function buildTable(){
         inputArray = inputArrToStr.split(',');
-        let rowNum = Math.pow(2, nameArray.length)
+        let rowNum = Math.pow(2, nameArray.length);
         headArray = nameArray;
+
         for (let i=0; i<inputArray.length; i++){
-            if(inputArray[i] !== ''){
+            if(inputArray !== ''){
                 headArray.push(inputArray[i]);
             }
         } headArray.forEach(function(element, index) {
@@ -190,14 +195,14 @@
         console.log(connective);
         console.log(inputArray);
         console.log(truthObject);
-        evaluate(connective, compares);
+        evaluate(connective, truthObject, compares);
         return str2Arr;
 
     }
 
 
     /*decides which function*/
-    function evaluate(connective, compares) {
+    function evaluate(connective, truthObject, compares) {
         switch(connective) {
             case 'v':
                 orTable(truthObject, compares);
@@ -215,6 +220,7 @@
                 negation(truthObject, compares);
                 break;
         }
+        return compares;
     }
 var cArray = [];
     function orTable(truthObject, compares) {
@@ -256,6 +262,7 @@ var cArray = [];
     }
 
     function ifTable(truthObject, compares) {
+        console.log(compares);
         var length = Math.pow(2, headArray.length);
         cArray =[];
         for (i=0; i<length; i++){
@@ -334,24 +341,70 @@ var cArray = [];
         if(e.currentTarget.id === "addNames") {
             var audio = document.getElementById('myAudio');
             audio.play()
-        } else {
+        } else if (e.currentTarget.id === "generate") {
              audio = document.getElementById('herAudio');
+            audio.play()
+        } else {
+            audio = document.getElementById('bad-move');
             audio.play()
         }
     }
 
+    function clear(){
+
+
+        inputArrToStr = '';
+        nameArray = '';
+        inputArray = []
+        $('#header').html('')
+        $('#truthTable').html('');
+        return backupInputArray
+    }
 
 
 
-    $('#clear').click(()=> inputArray =[]);
+    $('#clear').click(playCleo).click(clear);
 
-    $('#generate').click(buildTable);
-    $('#generate').click(playCleo);
+    $('#generate').click(buildTable)
+    /*$('#generate')*/.click(playCleo);
 
 
-    $('#addNames').click(playCleo);
-
-    $('#addNames').click(numOfNames);
+    $('#addNames').click(playCleo).click(numOfNames);
 </script>
 </body>
 </html>
+
+
+
+<!--
+    var truthtable = [];
+    var temptable =[]
+    function somefunction(num) {
+         temptable = [];
+        for (var i = 0; i < num; i++) {
+            for (var j = 0; temptable.length < Math.pow(2, num); j ++){
+                temptable.push('T');
+            }
+            truthtable.push(temptable);
+        }
+    }
+
+
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+|||||||||||||||Fun Problem: |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+* define a function that takes in an arr.length and returns this progression   ||||||||||||||||||||||||||||||||||||||||||||
+length: 1 output= A: [t, f]                                                    ||||||||||||||||||||||||||||||||||||||||||||
+length: 2 output= A: [t]*2, [f]*2] B: [t, f]*2                                 ||||||||||||||||||||||||||||||||||||||||||||
+length: 3 output= A: [t*4, f*4] B: [[t*2, f*2]*2] C: [[t,f]*8]                 ||||||||||||||||||||||||||||||||||||||||||||
+length: 4 output= A: [t*8, f*8] B: [[t*4, f*4]*2] C: [t*2, f*2]*4] D: [t,f]*16 ||||||||||||||||||||||||||||||||||||||||||||
+etc.                                                                           ||||||||||||||||||||||||||||||||||||||||||||
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
+
+
+    -->
