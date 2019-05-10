@@ -31,7 +31,8 @@ function isPrime(num) {
 	return true;
 }
 
-
+// Each function renamed to match the PE problem rather than what their function is specifically
+// to be dynammically called for each input.
 /*
 Multiples of 3 and 5
 
@@ -48,7 +49,7 @@ source https://projecteuler.net/problem=1
 //the function will count all the numbers between 1 and the given number
 // the numbers that are multiples of 3 or 5 will be added together.
 
-function multiplesOf3sAnd5s(num) {
+function pe_1(num) {
 	let x = 0;
 	if (num <= 0) {
 		return alert(num + " is not a valid number. Please enter an integer greater than 0");
@@ -83,7 +84,7 @@ Answer:
 
 
 // takes in a number
-function evenFibonacciSum(num) {
+function pe_2(num) {
 // first lets create the sequence variables;
 	let fibSeq = [];
 	let a = 1;
@@ -124,7 +125,7 @@ Answer:
 
 let primesList = [];
 
-function largestPrimeFactor(num) {
+function pe_3(num) {
 	let newNum = Math.sqrt(num);
 	let factors = [];
 	for (let i = 2; i < newNum; i++) {
@@ -161,7 +162,7 @@ Answer:
 
 let palVar = [];
 
-function palNum(num) {
+function pe_4(num) {
 	let a = 99;
 	let b = 99;
 	for (a = 100; a > 40; a--) {
